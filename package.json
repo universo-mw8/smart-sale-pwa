@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paulhoughton/react-pwa.git"
+    "url": "git@github.com:universo-mw8/smart-sale-pwa.git"
   },
   "license": "MIT",
   "devDependencies": {

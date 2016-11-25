@@ -7,10 +7,6 @@ import About from './components/About';
 import Home from './components/Home';
 
 class MatchAndHideDrawer extends Component {
-  componentWillUpdate() {
-    document.querySelector('.mdl-layout__obfuscator').classList.remove('is-visible');
-    document.querySelector('.mdl-layout__drawer').classList.remove('is-visible');
-  }
   render() {
     return <Match {...this.props} />;
   }
@@ -19,11 +15,10 @@ class MatchAndHideDrawer extends Component {
 export default () => (
   <HashRouter>
     <Layout fixedHeader>
-      <Header title="PWA"/>
-      <Drawer title="PWA">
+      <Header title="Smart Sale"/>
+      <Drawer title="Smart Sale">
         <Navigation>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
+          <Link to="/">Capturar QRCode</Link>
         </Navigation>
       </Drawer>
       <Content>
