@@ -4,24 +4,23 @@ import { render } from 'react-dom';
 import App from './App';
 import './style.css';
 
-const rootEl = document.getElementById('root');
-render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
-  rootEl
-);
+const rootEl = document.querySelector('[data-js="app"]');
 
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
-
-    render(
+const renderApp = (NextApp) => {
+  render(
       <AppContainer>
          <NextApp />
       </AppContainer>,
       rootEl
     );
+}
+
+renderApp(App)
+
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
+    renderApp(NextApp)
   });
 }
 
