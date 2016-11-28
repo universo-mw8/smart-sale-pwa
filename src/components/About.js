@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, CardTitle, CardText, CardActions, Button } from 'react-mdl';
-import { Link } from 'react-router';
+import React from 'react'
+import { Card, CardTitle, CardText, CardActions, Button } from 'react-mdl'
+import { Link } from 'react-router'
 
 export default () => (
   <Card shadow={0} style={{ textAlign: 'center' }}>
@@ -9,7 +9,9 @@ export default () => (
       About this Application
     </CardText>
     <CardActions border>
-      <Link to="/"><Button colored>OK</Button></Link>
+      <Link to='/'>
+        <Button colored>OK</Button>
+      </Link>
     </CardActions>
   </Card>
-);
+)

@@ -1,37 +1,52 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+'use strict'
 
-module.exports = {
-  devtool: 'eval',
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const validate = require('webpack-validator')
+
+module.exports = validate({
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './src/vendor',
-    './src/index'
+    path.join(__dirname, 'src', 'index')
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/dist/'
   },
   plugins: [
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'index.html'
-    })
+    // new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+    // new HtmlWebpackPlugin({
+      // template: 'index.html'
+    // })
   ],
   module: {
+    preLoaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      include: /src/,
+      loader: 'standard'
+    }],
     loaders: [{
       test: /\.js$/,
-      loader: 'babel-loader',
-      include: path.join(__dirname, 'src')
+      exclude: /node_modules/,
+      include: /src/,
+      loader: 'babel'
     },
     {
       test: /\.css/,
       loaders: ["style-loader", "css-loader"]
+    },
+    {
+      test: /\.(jpg|png)$/,
+      loader: 'url?limit=25000',
+      include: path.join(__dirname, 'src', 'images')
     }]
   }
-};
+
+})

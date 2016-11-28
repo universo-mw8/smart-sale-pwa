@@ -1,31 +1,34 @@
-import { AppContainer } from 'react-hot-loader';
-import React from 'react';
-import { render } from 'react-dom';
-import App from './App';
-import './style.css';
+'use strict'
 
-const rootEl = document.querySelector('[data-js="app"]');
+import React from 'react'
+import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import App from './app'
+
+import 'react-mdl/extra/material'
+import 'react-mdl/extra/material.css'
+import './style.css'
 
 const renderApp = (NextApp) => {
   render(
-      <AppContainer>
-         <NextApp />
-      </AppContainer>,
-      rootEl
-    );
+    <AppContainer>
+      <NextApp />
+    </AppContainer>,
+    document.querySelector('[data-js="app"]')
+  )
 }
 
 renderApp(App)
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
+  module.hot.accept('./app', () => {
+    const NextApp = require('./app').default
     renderApp(NextApp)
-  });
+  })
 }
 
-import { install, applyUpdate } from 'offline-plugin/runtime';
+// import { install, applyUpdate } from 'offline-plugin/runtime'
 
-install({
-  onUpdateReady: () => applyUpdate()
-});
+// install({
+//   onUpdateReady: () => applyUpdate()
+// })

@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+
+.mdl-layout{
+  background: #20b5ac;
+}
+
 .mdl-layout__drawer-button {
       background: url(/images/ic_menu_24px.svg) center center no-repeat;
 }
