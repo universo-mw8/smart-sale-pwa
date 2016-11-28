@@ -2,39 +2,60 @@
 
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
+import QRCode from 'qrcode.react'
 import { Layout, Content } from 'react-mdl'
-// import LogoImg from '../dist/images/icon-48x48.png'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      result: 'No result'
+      showCamera: true,
+      showSuccess: false,
+      result: null
     }
   }
   handleScan (data) {
-    this.setState({
-      result: data
-    })
+    setTimeout(() => {
+      this.setState({
+        result: this.generateQRCode()
+      }, () => {
+        this.setState({ showCamera: false })
+        this.setState({ showSuccess: true })
+      })
+      console.log(this.state.result)
+    }, 500)
   }
   handleError (err) {
     console.log(err)
   }
+  generateQRCode () {
+    let identifier = Math.floor((Math.random() * 1000) + 1)
+    return `${identifier};342432432;Bepantol Derma;30%;2017-01-31T18:46:19-0300;1318630`
+  }
   render () {
     const previewStyle = {
-      height: '360px',
+      height: '460px',
       width: '100%'
     }
 
     return (
-      <Layout fixedHeader fixedDrawer >
-        <Content>
-          <QrReader
-            previewStyle={previewStyle}
-            handleError={this.handleError}
-            handleScan={this.handleScan.bind(this)} />
-          <p>{this.state.result}</p>
-        </Content>
+      <Layout>
+        {this.state.showCamera &&
+          <Content className='reader'>
+            <QrReader
+              previewStyle={previewStyle}
+              handleError={this.handleError}
+              handleScan={this.handleScan.bind(this)} />
+          </Content>
+        }
+        {this.state.showSuccess &&
+          <Content className='success'>
+            <h4>
+              Parabéns va até a loja xxxxx e apresente este QrCode para ganhar seu desconto de 20%
+            </h4>
+            <QRCode size={256} value={this.state.result} />
+          </Content>
+        }
       </Layout>
     )
   }

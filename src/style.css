@@ -16,3 +16,13 @@
   justify-content: center;
   align-items: center;
 }
+
+.mdl-layout__content.success {
+    height: 100%;
+    background: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    text-align: center;
+}
