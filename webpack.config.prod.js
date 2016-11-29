@@ -9,12 +9,11 @@ const pkg = require('./package.json');
 
 module.exports = {
   entry: {
-    vendor: Object.keys(pkg.dependencies).concat('./src/vendor'),
     app: './src/index'
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.[chunkhash:8].js',
+    filename: 'bundle.js',
   },
   plugins: [
     new CleanWebpackPlugin(["dist"], { verbose: false }),
@@ -22,40 +21,64 @@ module.exports = {
       template: 'index.html'
     }),
     new CopyWebpackPlugin([
-      { from: 'images/', to: 'images/' },
+      { from: 'src/images/', to: 'images/' },
       { from: 'manifest.json' }]),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'],
+      names: ['manifest'],
       minChunks: Infinity,
-      filename: '[name].[chunkhash:8].js'
+      filename: '[name].js'
     }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
+    // new webpack.LoaderOptionsPlugin({
+    //   minimize: true,
+    //   debug: false
+    // }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       },
       sourceMap: false
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
-    new OfflinePlugin({
-      excludes: ["images/*.png"],
-      ServiceWorker: { events: true }
     })
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': '"production"'
+    // }),
+    // new OfflinePlugin({
+    //   excludes: ["images/*.png"],
+    //   ServiceWorker: { events: true }
+    // })
   ],
   module: {
+    preLoaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      include: path.join(__dirname, 'src'),
+      loader: 'standard'
+    }],
     loaders: [{
       test: /\.js$/,
-      loaders: 'babel-loader',
+      exclude: /node_modules/,
       include: path.join(__dirname, 'src'),
+      loader: 'babel'
     },
     {
       test: /\.css/,
       loaders: ["style-loader", "css-loader"]
+    },
+    {
+      test: /\.(jpg|png)$/,
+      // loader: 'url?limit=25000',
+      loader: 'file?name=[path][name].[ext]',
+      include: path.join(__dirname, 'src', 'images')
     }]
   }
+  // module: {
+  //   loaders: [{
+  //     test: /\.js$/,
+  //     loaders: 'babel-loader',
+  //     include: path.join(__dirname, 'src'),
+  //   },
+  //   {
+  //     test: /\.css/,
+  //     loaders: ["style-loader", "css-loader"]
+  //   }]
+  // }
 };
