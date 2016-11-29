@@ -26,14 +26,15 @@
     "html-webpack-plugin": "^2.24.1",
     "jest": "^17.0.3",
     "offline-plugin": "^3.4.2",
+    "qrcode.react": "^0.6.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-test-renderer": "^15.4.1",
+    "standard": "^8.6.0",
+    "standard-loader": "^5.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
-    "webpack-validator": "^2.2.9",
-    "standard": "^8.6.0",
-    "standard-loader": "^5.0.0"
+    "webpack-validator": "^2.2.9"
   },
   "dependencies": {
     "react": "^15.4.1",

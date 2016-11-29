@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
 import QRCode from 'qrcode.react'
-import { Layout, Content } from 'react-mdl'
+import { Layout, Header, Content } from 'react-mdl'
 
 class App extends Component {
   constructor (props) {
@@ -15,15 +15,12 @@ class App extends Component {
     }
   }
   handleScan (data) {
-    setTimeout(() => {
-      this.setState({
-        result: this.generateQRCode()
-      }, () => {
-        this.setState({ showCamera: false })
-        this.setState({ showSuccess: true })
-      })
-      console.log(this.state.result)
-    }, 500)
+    this.setState({
+      result: this.generateQRCode()
+    }, () => {
+      this.setState({ showCamera: false })
+      this.setState({ showSuccess: true })
+    })
   }
   handleError (err) {
     console.log(err)
@@ -37,25 +34,42 @@ class App extends Component {
       height: '460px',
       width: '100%'
     }
-
     return (
-      <Layout>
-        {this.state.showCamera &&
-          <Content className='reader'>
-            <QrReader
-              previewStyle={previewStyle}
-              handleError={this.handleError}
-              handleScan={this.handleScan.bind(this)} />
-          </Content>
+      <Layout fixedHeader >
+        <Header title='Smart Sale App' />
+        <Content>
+          <div className='logo-mw8' />
+          {this.state.showCamera &&
+            <Content className='reader'>
+              <h4 className='success-message'>
+                Olá,&nbsp;
+                <span className='success-message-user'>
+                  Waldo Sousa
+                </span>
+              </h4>
+              <p className='success-message-info'>
+                Aproxime a câmera para realizar a leitura do QRCode
+              </p>
+              <QrReader
+                previewStyle={previewStyle}
+                handleError={this.handleError}
+                handleScan={this.handleScan.bind(this)} />
+            </Content>
+          }
+          {this.state.showSuccess &&
+            <Content className='success-box'>
+              <h4 className='success-message'>
+                <span className='success-message-user'>
+                  Waldo Sousa
+                </span>
+              </h4>
+              <p className='success-message-info'>
+                Parabéns, Vá até a farmácia mais próxima e apresente este QRCode para ganhar seu desconto de 20%
+              </p>
+              <QRCode size={256} value={this.state.result} />
+            </Content>
         }
-        {this.state.showSuccess &&
-          <Content className='success'>
-            <h4>
-              Parabéns va até a loja xxxxx e apresente este QrCode para ganhar seu desconto de 20%
-            </h4>
-            <QRCode size={256} value={this.state.result} />
-          </Content>
-        }
+        </Content>
       </Layout>
     )
   }

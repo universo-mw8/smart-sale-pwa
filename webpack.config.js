@@ -29,13 +29,13 @@ module.exports = validate({
     preLoaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      include: /src/,
+      include: path.join(__dirname, 'src'),
       loader: 'standard'
     }],
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      include: /src/,
+      include: path.join(__dirname, 'src'),
       loader: 'babel'
     },
     {
@@ -44,7 +44,8 @@ module.exports = validate({
     },
     {
       test: /\.(jpg|png)$/,
-      loader: 'url?limit=25000',
+      // loader: 'url?limit=25000',
+      loader: 'file?name=[path][name].[ext]',
       include: path.join(__dirname, 'src', 'images')
     }]
   }
