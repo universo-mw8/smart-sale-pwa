@@ -53,7 +53,8 @@ class App extends Component {
               <QrReader
                 previewStyle={previewStyle}
                 handleError={this.handleError}
-                handleScan={this.handleScan.bind(this)} />
+                handleScan={this.handleScan.bind(this)}
+                facingMode={'rear'} />
             </Content>
           }
           {this.state.showSuccess &&
